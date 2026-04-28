@@ -6,6 +6,7 @@ using ADO.NET.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ADO.NET.Mapping;
 
 
 
@@ -22,6 +23,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<DbConnectionFactory>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 
