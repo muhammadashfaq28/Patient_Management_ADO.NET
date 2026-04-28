@@ -1,6 +1,10 @@
 ﻿using ADO.NET.Entities;
 using ADO.NET.Repositories.Interfaces;
 using ADO.NET.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Data;
 
 namespace ADO.NET.Services.Implementations
 {
@@ -11,7 +15,7 @@ namespace ADO.NET.Services.Implementations
             _patientRepository = patientRepository;
         }
 
-        public async Task<List<Patient>> GetPatientsAsync()
+        public async Task<List<Patient>> GetAllPatientsAsync()
         {
             return await _patientRepository.GetAllPatientsAsync();
         }

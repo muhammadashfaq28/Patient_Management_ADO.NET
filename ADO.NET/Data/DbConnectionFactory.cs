@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+
 
 
 
@@ -18,6 +20,10 @@ namespace ADO.NET.Data
             return new SqlConnection(
                 _configuration.GetConnectionString("DefaultConnection")
             );
+
+
         }
+
+
     }
 }

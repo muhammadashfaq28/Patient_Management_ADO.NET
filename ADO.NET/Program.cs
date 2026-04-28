@@ -1,5 +1,12 @@
 using ADO.NET.Data;
+using ADO.NET.Repositories.Implementations;
 using ADO.NET.Repositories.Interfaces;
+using ADO.NET.Services.Implementations;
+using ADO.NET.Services.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 
 
 
@@ -13,7 +20,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<DbConnectionFactory>();
-builder.Services.AddScoped<IPatientRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 var app = builder.Build();
 
