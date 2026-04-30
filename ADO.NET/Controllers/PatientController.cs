@@ -21,5 +21,37 @@ namespace ADO.NET.Controllers
             var patients = await _patientService.GetAllPatientsAsync();
             return Ok(patients);
         }
+
+        [HttpGet("with-appointments")]
+        public async Task<IActionResult> GetPatientsWithAppointments()
+        {
+            var result = await _patientService.GetPatientWithAppointmentsAsync();
+
+            return Ok(result);
+        }
+
+
+        [HttpGet("no-appointments")]
+        public async Task<IActionResult> GetPatientsWithNoAppointments()
+        {
+            var result = await _patientService.GetPatientsWithNoAppointmentsAsync();
+
+            return Ok(result);
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPatientById(int id)
+        {
+            var result = await _patientService.GetPatientByIdAsync(id);
+
+            if (result == null)
+                return NotFound($"Patient with ID {id} not found");
+
+            return Ok(result);
+        }
+
+
+
     }
 }

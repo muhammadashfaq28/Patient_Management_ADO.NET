@@ -12,6 +12,9 @@ namespace ADO.NET.Mapping
                 opt => opt.MapFrom(src => src.PatientId))
                 .ForMember(dest => dest.PatientName,
                 opt => opt.MapFrom(src => src.FirstName + " " + src.LastName));
+
+            CreateMap<Appointment, AppointmentResponseDto>();
+
         }
     }
 }

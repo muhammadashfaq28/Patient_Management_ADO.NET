@@ -26,5 +26,29 @@ namespace ADO.NET.Services.Implementations
 
             return _mapper.Map<List<PatientResponseDto>>(patients);
         }
+
+        public async Task<List<PatientWithAppointmentDto>> GetPatientWithAppointmentsAsync()
+        {
+            return await _patientRepository.GetPatientsWithAppointmentsasync();
+        }
+
+
+        public async Task<List<PatientResponseDto>> GetPatientsWithNoAppointmentsAsync()
+        {
+            var patients = await _patientRepository.GetPatientsWithNoAppointmentasync();
+
+            return _mapper.Map<List<PatientResponseDto>>(patients);
+        }
+
+
+        public async Task<PatientResponseDto?> GetPatientByIdAsync(int id)
+        {
+            var patient = await _patientRepository.GetPatientByIdAsync(id);
+
+            if (patient == null)
+                return null;
+
+            return _mapper.Map<PatientResponseDto>(patient);
+        }
     }
 }

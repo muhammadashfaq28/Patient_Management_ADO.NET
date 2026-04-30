@@ -10,5 +10,11 @@ namespace ADO.NET.Services.Interfaces
     public interface IPatientService
     {
         Task<List<PatientResponseDto>> GetAllPatientsAsync();
+        Task<List<PatientWithAppointmentDto>> GetPatientWithAppointmentsAsync();
+
+        Task<List<PatientResponseDto>> GetPatientsWithNoAppointmentsAsync();
+
+        Task<PatientResponseDto?> GetPatientByIdAsync(int id);
+      
     }
 }
