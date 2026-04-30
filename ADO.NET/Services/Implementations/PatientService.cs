@@ -1,12 +1,13 @@
-﻿using ADO.NET.Entities;
+﻿using ADO.NET.DTOs.Request;
+using ADO.NET.DTOs.Response;
+using ADO.NET.Entities;
 using ADO.NET.Repositories.Interfaces;
 using ADO.NET.Services.Interfaces;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Data;
-using AutoMapper;
-using ADO.NET.DTOs.Response;
+using System.Threading.Tasks;
 
 namespace ADO.NET.Services.Implementations
 {
@@ -50,5 +51,25 @@ namespace ADO.NET.Services.Implementations
 
             return _mapper.Map<PatientResponseDto>(patient);
         }
+        public async Task<bool> CreatePatientAsync(CreatePatientDto dto)
+        {
+            return await _patientRepository.CreatePatientAsync(dto);
+        }
+
+
+        public async Task<bool> UpdatePatientAsync(int id, UpdatePatientDto dto)
+        {
+            var patient = _mapper.Map<Patient>(dto);
+
+            patient.PatientId = id;
+
+            return await _patientRepository.UpdatePatientAsync(patient);
+        }
+
+        public async Task<bool> DeletePatientByIdAsync(int id)
+        {
+            return await _patientRepository.DeletePatientByIdAsync(id);
+        }
+
     }
 }

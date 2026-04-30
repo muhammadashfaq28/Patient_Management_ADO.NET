@@ -1,9 +1,10 @@
-﻿using ADO.NET.Entities;
+﻿using ADO.NET.DTOs.Request;
+using ADO.NET.DTOs.Response;
+using ADO.NET.Entities;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Data;
-using ADO.NET.DTOs.Response;
+using System.Threading.Tasks;
 
 namespace ADO.NET.Services.Interfaces
 {
@@ -15,6 +16,10 @@ namespace ADO.NET.Services.Interfaces
         Task<List<PatientResponseDto>> GetPatientsWithNoAppointmentsAsync();
 
         Task<PatientResponseDto?> GetPatientByIdAsync(int id);
-      
+        Task<bool> CreatePatientAsync(CreatePatientDto dto);
+
+        Task<bool> UpdatePatientAsync(int id, UpdatePatientDto dto);
+
+        Task<bool> DeletePatientByIdAsync(int id);
     }
 }

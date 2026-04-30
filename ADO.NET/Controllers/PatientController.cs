@@ -1,7 +1,8 @@
-﻿using ADO.NET.Services.Interfaces;
+﻿using ADO.NET.DTOs.Request;
+using ADO.NET.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
 
 
 namespace ADO.NET.Controllers
@@ -51,6 +52,43 @@ namespace ADO.NET.Controllers
             return Ok(result);
         }
 
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePatient(CreatePatientDto dto)
+        {
+            var result = await _patientService.CreatePatientAsync(dto);
+
+            if (!result)
+                return BadRequest("Failed to create patient");
+
+            return Ok("Patient created successfully");
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePatient(int id, UpdatePatientDto dto)
+        {
+            var result = await _patientService.UpdatePatientAsync(id, dto);
+
+            if (!result)
+                return NotFound($"Patient with ID {id} not found");
+
+            return Ok("Patient updated successfully");
+        }
+
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePatient(int id)
+        {
+            var result = await _patientService.DeletePatientByIdAsync(id);
+
+            if (!result)
+                return NotFound($"Patient with ID {id} not found");
+
+            return Ok("Patient deleted successfully");
+        }
 
 
     }

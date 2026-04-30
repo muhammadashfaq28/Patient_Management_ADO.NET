@@ -1,4 +1,5 @@
-﻿using ADO.NET.DTOs.Response;
+﻿using ADO.NET.DTOs.Request;
+using ADO.NET.DTOs.Response;
 using ADO.NET.Entities;
 using AutoMapper;
 
@@ -14,6 +15,7 @@ namespace ADO.NET.Mapping
                 opt => opt.MapFrom(src => src.FirstName + " " + src.LastName));
 
             CreateMap<Appointment, AppointmentResponseDto>();
+            CreateMap<UpdatePatientDto, Patient>();
 
         }
     }

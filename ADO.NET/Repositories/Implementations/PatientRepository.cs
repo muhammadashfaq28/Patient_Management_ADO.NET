@@ -1,4 +1,5 @@
 ﻿using ADO.NET.Data;
+using ADO.NET.DTOs.Request;
 using ADO.NET.DTOs.Response;
 using ADO.NET.Entities;
 using ADO.NET.Repositories.Interfaces;
@@ -150,6 +151,70 @@ namespace ADO.NET.Repositories.Implementations
             }
 
             return null;
+        }
+
+
+        public async Task<bool> CreatePatientAsync(CreatePatientDto dto)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            using var command = new SqlCommand("CreatePatient", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@FirstName", dto.FirstName ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@LastName", dto.LastName ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@Gender", dto.Gender ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@DateOfBirth", dto.DateOfBirth);
+            command.Parameters.AddWithValue("@City", dto.City ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@PhoneNumber", dto.PhoneNumber ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@Email", dto.Email ?? (object)DBNull.Value);
+
+            await connection.OpenAsync();
+
+            var rowsAffected = await command.ExecuteNonQueryAsync();
+
+            return rowsAffected > 0;
+        }
+
+
+
+
+        public async Task<bool> UpdatePatientAsync(Patient patient)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            using var command = new SqlCommand("UpdatePatient", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@PatientId", patient.PatientId);
+            command.Parameters.AddWithValue("@FirstName", patient.FirstName ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@LastName", patient.LastName ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@Gender", patient.Gender ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@DateOfBirth", patient.DateOfBirth);
+            command.Parameters.AddWithValue("@City", patient.City ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@PhoneNumber", patient.PhoneNumber ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@Email", patient.Email ?? (object)DBNull.Value);
+
+            await connection.OpenAsync();
+
+            var rows = await command.ExecuteNonQueryAsync();
+
+            return rows > 0;
+        }
+
+
+
+        public async Task<bool> DeletePatientByIdAsync(int id)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            using var command = new SqlCommand("DeletePatientByID", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@PatientId", id);
+
+            await connection.OpenAsync();
+
+            var rows = await command.ExecuteNonQueryAsync();
+
+            return rows > 0;
         }
 
 
