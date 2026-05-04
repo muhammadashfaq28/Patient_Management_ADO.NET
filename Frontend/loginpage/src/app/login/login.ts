@@ -1,5 +1,5 @@
-import { Component, NgModule } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
+import { Component} from '@angular/core';
+import { FormsModule} from '@angular/forms';
 import { Auth } from '../services/auth';
 
 @Component({
@@ -22,8 +22,6 @@ export class Login {
       .subscribe({
         next: (res: any) => {
           console.log(res);
-
-          // store token
           localStorage.setItem('token', res.token);
 
           alert('Login successful');
