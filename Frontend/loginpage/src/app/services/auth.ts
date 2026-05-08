@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class Auth {
 
 
-  private apiUrl = 'https://localhost:7004/api/auth';
+  private apiUrl = environment.apiUrl + '/auth';
 
   constructor(private http: HttpClient) {}
 

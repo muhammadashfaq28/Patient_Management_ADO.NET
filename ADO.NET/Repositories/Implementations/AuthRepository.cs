@@ -23,7 +23,7 @@ namespace ADO.NET.Repositories.Implementations
             WHERE UserName = @UserName AND Password = @Password", connection);
 
             command.Parameters.AddWithValue("@UserName", userName);
-            command.Parameters.AddWithValue("@Password", password); // temp (no hashing yet)
+            command.Parameters.AddWithValue("@Password", password);
 
             await connection.OpenAsync();
 

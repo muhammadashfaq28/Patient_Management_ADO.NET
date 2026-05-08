@@ -1,0 +1,65 @@
+<div class="dashboard-container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Dashboard</h2>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+
+  <!-- Button -->
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <button (click)="loadPatients()">Get Patients</button>
+      <button (click)="showAdd()">Add Patient</button>
+      <button (click)="showUpdate()">Update Patient</button>
+      <button (click)="showDelete()">Delete Patient</button>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      @if (view === 'patients') {
+      <table class="patient-table">
+        @for (p of patients; track p.patientId) {
+        <tr>
+          <td>{{ p.patientId }}</td>
+          <td>{{ p.patientName }}</td>
+          <td>{{ p.city }}</td>
+          <td>{{ p.email }}</td>
+        </tr>
+        }
+      </table>
+      }
+
+      @if (view === 'add') {
+      <form [formGroup]="addForm" (ngSubmit)="addPatient()" class="form-container">
+
+        <h3>Add Patient</h3>
+
+        <input placeholder="First Name" formControlName="firstName">
+        <input placeholder="Last Name" formControlName="lastName">
+        <input placeholder="Gender" formControlName="gender">
+        <input type="date" formControlName="dateOfBirth">
+        <input placeholder="City" formControlName="city">
+        <input placeholder="Phone Number" formControlName="phoneNumber">
+        <input placeholder="Email" formControlName="email">
+
+        <button type="submit" [disabled]="addForm.invalid">Add Patient</button>
+
+      </form>
+      }
+
+      @if (view === 'update') {
+      <p>Update Form Here</p>
+      }
+
+      @if (view === 'delete') {
+      <p>Delete UI Here</p>
+      }
+
+    </div>
+
+  </div>
+</div>

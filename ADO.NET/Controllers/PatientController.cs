@@ -74,7 +74,7 @@ namespace ADO.NET.Controllers
             if (!result)
                 return NotFound($"Patient with ID {id} not found");
 
-            return Ok("Patient updated successfully");
+            return Ok(new { message = "Patient created successfully" });
         }
 
 
