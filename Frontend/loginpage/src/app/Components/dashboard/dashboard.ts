@@ -55,12 +55,12 @@ export class Dashboard {
       dateOfBirth: new Date(formValue.dateOfBirth).toISOString()
     };
 
-    console.log(body); 
+    console.log(body);
 
     this.patientService.add(body).subscribe({
       next: (res) => {
         console.log(res);
-          alert('Patient added successfully');
+        alert('Patient added successfully');
         this.addForm.reset();
       },
       error: (err) => {
