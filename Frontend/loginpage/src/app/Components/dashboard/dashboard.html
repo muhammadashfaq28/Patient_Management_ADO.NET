@@ -28,6 +28,9 @@
           <td>{{ p.patientName }}</td>
           <td>{{ p.city }}</td>
           <td>{{ p.email }}</td>
+          <td>
+            <button class="edit-btn" (click)="editPatient(p)">Edit</button>
+          </td>
         </tr>
         }
       </table>
@@ -52,7 +55,25 @@
       }
 
       @if (view === 'update') {
-      <p>Update Form Here</p>
+      <div class="form-container">
+
+        <h3>Update Patient</h3>
+
+        <form [formGroup]="updateForm" (ngSubmit)="updatePatient()" class="form-container">
+
+          <input formControlName="firstName" placeholder="First Name">
+          <input formControlName="lastName" placeholder="Last Name">
+          <input formControlName="gender" placeholder="Gender">
+          <input type="date" formControlName="dateOfBirth">
+          <input formControlName="city" placeholder="City">
+          <input formControlName="phoneNumber" placeholder="Phone Number">
+          <input formControlName="email" placeholder="Email">
+
+          <button type="submit">Update</button>
+
+        </form>
+
+      </div>
       }
 
       @if (view === 'delete') {

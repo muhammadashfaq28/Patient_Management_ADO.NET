@@ -21,4 +21,8 @@ export class PatientService {
   createPatient(data: CreatePatientDto): Observable<string> {
     return this.http.post(this.apiUrl, data, { responseType: 'text' });
   }
+
+  updatePatient(id: number, data: CreatePatientDto) {
+  return this.http.put(`${this.apiUrl}/${id}`, data);
+}
 }
