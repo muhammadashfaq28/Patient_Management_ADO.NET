@@ -22,10 +22,18 @@ namespace ADO.NET.Controllers
         {
             var token = await _authService.IsLogin(request.Username, request.Password);
 
-            if(token == null) 
-                return Unauthorized("Invalid credentials");
+            if(token == null)
+                return Unauthorized(new
+                {
+                    message = "Invalid credentials"
+                });
 
-            return Ok(new { token });
+
+
+            return Ok(new { 
+                message = "Login Successfull",
+                token 
+            });
         }
     }
 }

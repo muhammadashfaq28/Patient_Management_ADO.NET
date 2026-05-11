@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+import { Patient } from '../models/PatientInterface';
+import { CreatePatientDto } from '../models/CreatePatient';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
-  
+
   private apiUrl = environment.apiUrl + '/patient';
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getAll(): Observable<Patient[]> {
+    return this.http.get<Patient[]>(this.apiUrl);
   }
 
-  add(data: any) {
-  return this.http.post(this.apiUrl, data);
-}
+  createPatient(data: CreatePatientDto): Observable<string> {
+    return this.http.post(this.apiUrl, data, { responseType: 'text' });
+  }
 }

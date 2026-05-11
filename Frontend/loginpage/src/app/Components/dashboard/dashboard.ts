@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PatientService } from '../../services/patientService';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { error } from 'console';
+import { Patient } from '../../models/PatientInterface';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,7 @@ export class Dashboard {
 
   addForm: FormGroup;
   view: string = '';
-  patients: any[] = [];
+  patients: Patient[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -45,30 +46,26 @@ export class Dashboard {
   }
 
   addPatient() {
+  if (this.addForm.invalid) return;
 
-    if (this.addForm.invalid) return;
+  const formValue = this.addForm.value;
 
-    const formValue = this.addForm.value;
+  const body = {
+    ...formValue,
+    dateOfBirth: new Date(formValue.dateOfBirth).toISOString()
+  };
 
-    const body = {
-      ...formValue,
-      dateOfBirth: new Date(formValue.dateOfBirth).toISOString()
-    };
-
-    console.log(body);
-
-    this.patientService.add(body).subscribe({
-      next: (res) => {
-        console.log(res);
-        alert('Patient added successfully');
-        this.addForm.reset();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Failed to add patient');
-      }
-    });
-  }
+  this.patientService.createPatient(body).subscribe({
+    next: (res) => {
+      alert('Patient added successfully');
+      this.addForm.reset();  
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Failed to add patient');
+    }
+  });
+}
 
   showAdd() { this.view = 'add'; }
   showUpdate() { this.view = 'update'; }
