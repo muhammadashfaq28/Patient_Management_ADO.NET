@@ -7,6 +7,9 @@ import { environment } from '../environments/environment';
   providedIn: 'root',
 })
 export class Auth {
+  static login(login: any) {
+    throw new Error('Method not implemented.');
+  }
 
 
   private apiUrl = environment.apiUrl + '/auth';
