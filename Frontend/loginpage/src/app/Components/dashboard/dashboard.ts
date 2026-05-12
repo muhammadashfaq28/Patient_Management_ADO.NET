@@ -127,7 +127,7 @@ export class Dashboard {
     this.patientService.deletePatient(id).subscribe({
       next: () => {
         alert('Patient deleted successfully');
-        this.patients = this.patients.filter(p => p.patientId !== id); // ✅ locally remove
+        this.patients = this.patients.filter(p => p.patientId !== id); 
       },
       error: () => alert('Failed to delete patient')
     });

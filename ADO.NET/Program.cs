@@ -57,10 +57,10 @@ builder.Services.AddScoped<JwtHelper>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular",
+    options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
+            policy.WithOrigins("http://172.16.103.17:4200") 
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -74,15 +74,12 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAngular");
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 
 app.UseAuthorization();
