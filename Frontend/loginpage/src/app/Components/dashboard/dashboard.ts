@@ -13,12 +13,15 @@ import { Patient } from '../../models/PatientInterface';
 })
 export class Dashboard {
 
-  addForm: FormGroup;
-  updateForm: FormGroup;
-  selectedId: number = 0;
+  // ─── Properties ───────────────────────
   view: string = '';
   patients: Patient[] = [];
+  selectedId: number = 0;
 
+  addForm: FormGroup;
+  updateForm: FormGroup;
+
+  // ─── Constructor ──────────────────────
   constructor(
     private fb: FormBuilder,
     private patientService: PatientService,
@@ -45,14 +48,46 @@ export class Dashboard {
     });
   }
 
-
-
-  formatDate(date: any) {
+  // ─── Helper ───────────────────────────
+  private formatDate(date: any): string {
     return date ? date.split('T')[0] : '';
   }
-  editPatient(patient: any) {
 
-    this.view = 'update';     // show form
+  // ─── Load ─────────────────────────────
+ loadPatients() {
+  this.view = 'patients'; 
+  this.patientService.getAll().subscribe({
+    next: (res) => {
+      this.patients = res;
+    },
+    error: (err) => {
+      console.error(err);
+    }
+  });
+}
+
+  // ─── Add ──────────────────────────────
+  addPatient() {
+    if (this.addForm.invalid) return;
+
+    const body = {
+      ...this.addForm.value,
+      dateOfBirth: new Date(this.addForm.value.dateOfBirth).toISOString()
+    };
+
+    this.patientService.createPatient(body).subscribe({
+      next: () => {
+        alert('Patient added successfully');
+        this.addForm.reset();
+        this.loadPatients();
+      },
+      error: () => alert('Failed to add patient')
+    });
+  }
+
+  // ─── Edit ─────────────────────────────
+  editPatient(patient: any) {
+    this.view = 'update';
     this.selectedId = patient.patientId;
 
     this.updateForm.patchValue({
@@ -60,35 +95,15 @@ export class Dashboard {
       lastName: patient.lastName ?? '',
       gender: patient.gender ?? '',
       dateOfBirth: this.formatDate(patient.dateOfBirth),
-      city: patient.city,
+      city: patient.city ?? '',
       phoneNumber: patient.phoneNumber ?? '',
-      email: patient.email
+      email: patient.email ?? ''
     });
   }
 
-  addPatient() {
-    if (this.addForm.invalid) return;
-
-    const formValue = this.addForm.value;
-
-    const body = {
-      ...formValue,
-      dateOfBirth: new Date(formValue.dateOfBirth).toISOString()
-    };
-
-    this.patientService.createPatient(body).subscribe({
-      next: (res) => {
-        alert('Patient added successfully');
-        this.addForm.reset();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Failed to add patient');
-      }
-    });
-  }
-
+  // ─── Update ───────────────────────────
   updatePatient() {
+    if (this.updateForm.invalid) return;
 
     const body = {
       ...this.updateForm.value,
@@ -99,27 +114,31 @@ export class Dashboard {
       next: () => {
         alert('Updated successfully');
         this.updateForm.reset();
-        this.view = '';
+        this.loadPatients(); 
       },
-      error: (err) => {
-        console.error(err);
-      }
+      error: () => alert('Failed to update patient')
     });
   }
 
+  // ─── Delete ───────────────────────────
+  deletePatient(id: number) {
+    if (!confirm('Are you sure?')) return;
+
+    this.patientService.deletePatient(id).subscribe({
+      next: () => {
+        alert('Patient deleted successfully');
+        this.patients = this.patients.filter(p => p.patientId !== id); // ✅ locally remove
+      },
+      error: () => alert('Failed to delete patient')
+    });
+  }
+
+  // ─── Auth ─────────────────────────────
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
-  loadPatients() {
-    this.patientService.getAll().subscribe(res => {
-      this.patients = res;
-      this.view = 'patients';
-    });
-  }
-
+  // ─── Navigation ───────────────────────
   showAdd() { this.view = 'add'; }
-  showUpdate() { this.view = 'update'; }
-  showDelete() { this.view = 'delete'; }
 }

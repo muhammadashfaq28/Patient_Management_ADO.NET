@@ -25,4 +25,8 @@ export class PatientService {
   updatePatient(id: number, data: CreatePatientDto) {
   return this.http.put(`${this.apiUrl}/${id}`, data);
 }
+
+deletePatient(id: number) {
+  return this.http.delete(`${this.apiUrl}/${id}`, { responseType: 'text' });
+}
 }

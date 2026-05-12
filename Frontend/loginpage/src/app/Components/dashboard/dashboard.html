@@ -13,8 +13,7 @@
     <div class="sidebar">
       <button (click)="loadPatients()">Get Patients</button>
       <button (click)="showAdd()">Add Patient</button>
-      <button (click)="showUpdate()">Update Patient</button>
-      <button (click)="showDelete()">Delete Patient</button>
+
     </div>
 
     <!-- Content -->
@@ -22,18 +21,36 @@
 
       @if (view === 'patients') {
       <table class="patient-table">
-        @for (p of patients; track p.patientId) {
-        <tr>
-          <td>{{ p.patientId }}</td>
-          <td>{{ p.patientName }}</td>
-          <td>{{ p.city }}</td>
-          <td>{{ p.email }}</td>
-          <td>
-            <button class="edit-btn" (click)="editPatient(p)">Edit</button>
-          </td>
-        </tr>
-        }
-      </table>
+
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>City</th>
+      <th>Email</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (p of patients; track p.patientId) {
+      <tr>
+        <td>{{ p.patientId }}</td>
+        <td>{{ p.patientName }}</td>
+        <td>{{ p.city }}</td>
+        <td>{{ p.email }}</td>
+        <td>
+          <button class="edit-btn" (click)="editPatient(p)">Edit</button>
+        </td>
+        <td>
+          <button class="delete-btn" (click)="deletePatient(p.patientId)">Delete</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+
+</table>
       }
 
       @if (view === 'add') {
@@ -55,7 +72,6 @@
       }
 
       @if (view === 'update') {
-      <div class="form-container">
 
         <h3>Update Patient</h3>
 
@@ -73,7 +89,6 @@
 
         </form>
 
-      </div>
       }
 
       @if (view === 'delete') {

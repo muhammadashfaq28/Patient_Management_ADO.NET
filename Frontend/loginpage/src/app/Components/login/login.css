@@ -1,75 +1,168 @@
-/* Full screen center */
 .login-container {
   height: 100vh;
   display: flex;
+}
+
+/* ─── Left ───────────────────── */
+.login-left {
+  flex: 1.2;
+  background: #4e73df;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  padding: 48px;
+}
+
+.brand {
+  display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  gap: 8px;
+  margin-bottom: 32px;
 }
 
-/* Card */
-.login-card {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  width: 320px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1cc88a;
 }
 
-/* Title */
-.login-card h2 {
-  margin-bottom: 20px;
-  color: #333;
+.brand-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
 }
 
-/* Form group */
-.form-group {
-  margin-bottom: 15px;
-  text-align: left;
+.login-left h1 {
+  font-size: 28px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 10px;
 }
 
-/* Labels */
-.form-group label {
+.login-left p {
   font-size: 14px;
-  color: #555;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  max-width: 240px;
 }
 
-/* Inputs */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.feat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+}
+
+.feat-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+}
+
+/* ─── Right ──────────────────── */
+.login-right {
+  flex: 0 0 380px;   /* ← fixed width properly */
+  background: white;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-right h2 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #222;      
+  margin-bottom: 4px;
+}
+
+.sub {
+  font-size: 13px;
+  color: #666;       
+  margin-bottom: 28px;
+}
+
+.form-group label {
+  font-size: 12px;
+  color: #444;        
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .form-group input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
+  padding: 9px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 14px;
+  color: #222;        
   outline: none;
-  transition: border 0.3s;
+  transition: border 0.2s;
+}
+
+/* ─── Form ───────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 12px;
+  color: #555;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-group input {
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
 }
 
 .form-group input:focus {
   border-color: #4e73df;
 }
 
-/* Button */
-button {
+.login-btn {
   width: 100%;
   padding: 10px;
   background: #4e73df;
   border: none;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 500;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  margin-top: 8px;
+  transition: background 0.2s;
 }
 
-button:hover {
-  background: #2e59d9;
-}
+.login-btn:hover { background: #3a5ec9; }
 
-/* Error */
 .error {
-  color: red;
+  color: #e74a3b;
+  font-size: 13px;
   margin-top: 10px;
-  font-size: 14px;
+  text-align: center;
 }

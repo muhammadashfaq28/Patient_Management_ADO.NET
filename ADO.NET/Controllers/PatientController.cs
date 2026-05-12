@@ -1,5 +1,6 @@
 ﻿using ADO.NET.DTOs.Request;
 using ADO.NET.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ADO.NET.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class PatientController : ControllerBase
@@ -87,7 +89,7 @@ namespace ADO.NET.Controllers
             if (!result)
                 return NotFound($"Patient with ID {id} not found");
 
-            return Ok("Patient deleted successfully");
+            return Ok(new { message = "Patient Deleted successfully" });
         }
 
 
